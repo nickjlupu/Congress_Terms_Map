@@ -34,7 +34,7 @@ L.control.layers(baseMaps).addTo(map);
 
 
 // Accessing the airport GeoJSON URL
-let states = "https://raw.githubusercontent.com/nickjlupu/Congress_Terms_Map/states.json"
+let states = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json"
 
 // // Grabbing our GeoJSON data.
 // d3.json(torontoHoods).then(function(data) {
