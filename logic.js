@@ -1,6 +1,3 @@
-// Add console.log to check to see if our code is working.
-console.log("working");
-
 // We create the tile layer that will be the background of our map.
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -33,8 +30,19 @@ L.control.layers(baseMaps).addTo(map);
 
 
 
-// Accessing the airport GeoJSON URL
+// Accessing the GeoJSON URL
 let states = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json"
+
+let congress = "https://theunitedstates.io/congress-legislators/legislators-current.json"
+
+
+
+
+
+
+// TO DO:  
+// grab data from congress
+// iterate through and make a table 
 
 // // Grabbing our GeoJSON data.
 // d3.json(torontoHoods).then(function(data) {
@@ -47,15 +55,30 @@ let states = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/d
 let myStyle = {
 	color: "blue",
 	weight: 1,
-	fillColor: "yellow"
+	fillColor: "blue"
 }
+// Grabbing the Congress data.
+d3.json(congress).then(function(data) {
+	console.log(data);
+	data.forEach(function (value) {
+		console.log(value.name.official_full);
+	});
+});
 
-// Grabbing our GeoJSON data.
+// Mapping the state GeoJSON data.
 d3.json(states).then(function(data) {
 	console.log(data);
 	// Creating a GeoJSON layer with the retrieved data
-	L.geoJson(data).addTo(map);
+	L.geoJson(data, {
+		style: myStyle,
+		onEachFeature: function(feature, layer) {
+			layer.bindPopup("<h3>" + feature.properties.name );
+		}
+	}).addTo(map);
 });
+
+
+
 
 // // Then we add our 'graymap' tile layer to the map.
 // streets.addTo(map);
