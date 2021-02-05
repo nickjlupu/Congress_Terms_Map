@@ -1,7 +1,7 @@
 # Congress_Terms_Map
 
 ## Objectives
-The main purpose of this project is to communicate the length of tenure of legislators in the United States Congress for each state.  
+The main purpose of this project is to communicate the length of tenure of legislators in the United States Congress for each state.  It is often said that the incumbants need to be voted out to drive change.  My curiousity of where the career politicians with the longest stints in office are located drove me to "map it out."  
 
 ## Resources
 * JavaScript
@@ -19,3 +19,5 @@ The main purpose of this project is to communicate the length of tenure of legis
 * Current challenge is how to get the congress data (names, terms, etc.) joined with the GeoJson data for the states to include in popups.
 * May consider separate layers for Senate & House of Representatives.
 * Would like to color code states based on average tenure of legislators.
+* **Currently working on cleaning up data with Pandas**
+* Considering doing viz in Tableau
