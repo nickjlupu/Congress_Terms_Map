@@ -5,17 +5,24 @@ let streets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v11/t
 	accessToken: API_KEY
 });
 
-// We create the dark view tile layer that will be an option for our map.
-let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
-	maxZoom: 18,
-	accessToken: API_KEY
-});
 
 // Create a base layer that holds both maps.
 let baseMaps = {
 	"Streets": streets,
-	"Satellite Streets": satelliteStreets,
+  };
+
+
+// Create the Senate layer for our map.
+let senate = new L.layerGroup();
+
+// Create the House of Representatives layer for our map.
+let house = new L.layerGroup();
+
+// We define an object that contains the overlays.
+// This overlay will be visible all the time.
+let overlays = {
+	"Senate": senate,
+	"House of Representatives": house,
   };
 
 // Create the map object with center, zoom level and default layer.
@@ -26,30 +33,48 @@ let map = L.map('mapid', {
 })
 
 // Pass our map layers into our layers control and add the layers control to the map.
-L.control.layers(baseMaps).addTo(map);
-
+L.control.layers(baseMaps, overlays).addTo(map);
 
 
 // Accessing the GeoJSON URL
 let states = dataset
 
-let congress = "https://theunitedstates.io/congress-legislators/legislators-current.json"
 
+// USE THIS FUNCTION AFTER COLOR SCHEME FOR TOTAL TERM OF STATE BUILT
 
+// function styleInfo(feature) {
+// 	return {
+// 		opacity: 1,
+// 		fillOpacity: 1,
+// 		fillColor: getColor(feature.properties.mag),
+// 		color: "#000000",
+// 		radius: getRadius(feature.properties.mag),
+// 		stroke: true,
+// 		weight: 0.5
+// 	};
+// }
 
+// USE THIS FUNCTION TO BUILD COLOR SCHEME FOR TOTAL TERM OF STATE
 
-
-
-// TO DO:  
-// grab data from congress
-// iterate through and make a table 
-
-// // Grabbing our GeoJSON data.
-// d3.json(torontoHoods).then(function(data) {
-// 	console.log(data);
-// 	// Creating a GeoJSON layer with the retrieved data.
-// 	L.geoJSON(data).addTo(map);
-// });
+// // This function determines the color of the circle based on the magnitude of the earthquake.
+// function getColor(magnitude) {
+// 	if (magnitude > 5) {
+// 	return "#ea2c2c";
+// 	}
+// 	if (magnitude > 4) {
+// 	return "#ea822c";
+// 	}
+// 	if (magnitude > 3) {
+// 	return "#ee9c00";
+// 	}
+// 	if (magnitude > 2) {
+// 	return "#eecc00";
+// 	}
+// 	if (magnitude > 1) {
+// 	return "#d4ee00";
+// 	}
+// 	return "#98ee00";
+// }
 
 // Create a style for the lines.
 let myStyle = {
@@ -57,18 +82,9 @@ let myStyle = {
 	weight: 1,
 	fillColor: "blue"
 }
-// // Grabbing the Congress data.
-// d3.json(congress).then(function(data) {
-// 	console.log(data);
-// 	data.forEach(function (value) {
-// 		console.log(value.name.official_full);
-// 	});
-// });
 
-// // Mapping the state GeoJSON data.
-// d3.json(states).then(function(data) {
-// 	console.log(data);
-// 	// Creating a GeoJSON layer with the retrieved data
+
+// map GeoJSON data
 L.geoJson(states, {
 	style: myStyle,
 	onEachFeature: function(feature, layer) {
@@ -76,9 +92,3 @@ L.geoJson(states, {
 	}
 }).addTo(map);
 
-
-
-// L.geoJson(states).addTo(map);
-
-// // Then we add our 'graymap' tile layer to the map.
-// streets.addTo(map);

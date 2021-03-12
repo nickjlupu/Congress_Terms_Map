@@ -21,8 +21,8 @@ The main purpose of this project is to communicate the length of tenure of legis
 * Had to research how to unstack rows in pandas dataframes to get a clean dataframe with a list of senators by state
 
 ## Challenges / Next Steps
-* Current challenge is how to get the congress data (names, terms, etc.) joined with the GeoJson data for the states to include in popups.
-* May consider separate layers for Senate & House of Representatives.
+* Current challenge is how to get the total congressional term for senators if they had previously been a representative.
+* Separate layers for Senate & House of Representatives.  **Should work on adding Representatives to GeoJSON data**
 * Would like to color code states based on average tenure of legislators.
 * **Currently working on cleaning up data with Pandas**
 * **Currently working on Representative Data**
