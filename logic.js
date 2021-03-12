@@ -31,7 +31,7 @@ L.control.layers(baseMaps).addTo(map);
 
 
 // Accessing the GeoJSON URL
-let states = "https://raw.githubusercontent.com/PublicaMundi/MappingAPI/master/data/geojson/us-states.json"
+let states = dataset
 
 let congress = "https://theunitedstates.io/congress-legislators/legislators-current.json"
 
@@ -57,28 +57,28 @@ let myStyle = {
 	weight: 1,
 	fillColor: "blue"
 }
-// Grabbing the Congress data.
-d3.json(congress).then(function(data) {
-	console.log(data);
-	data.forEach(function (value) {
-		console.log(value.name.official_full);
-	});
-});
+// // Grabbing the Congress data.
+// d3.json(congress).then(function(data) {
+// 	console.log(data);
+// 	data.forEach(function (value) {
+// 		console.log(value.name.official_full);
+// 	});
+// });
 
-// Mapping the state GeoJSON data.
-d3.json(states).then(function(data) {
-	console.log(data);
-	// Creating a GeoJSON layer with the retrieved data
-	L.geoJson(data, {
-		style: myStyle,
-		onEachFeature: function(feature, layer) {
-			layer.bindPopup("<h3>" + feature.properties.name );
-		}
-	}).addTo(map);
-});
-
+// // Mapping the state GeoJSON data.
+// d3.json(states).then(function(data) {
+// 	console.log(data);
+// 	// Creating a GeoJSON layer with the retrieved data
+L.geoJson(states, {
+	style: myStyle,
+	onEachFeature: function(feature, layer) {
+		layer.bindPopup("<h3>" + feature.properties.name + "<br>Senator 1: " + feature.properties.Senator1 + ", Term: " + feature.properties.Sen1_Term + "<br>Senator 2: " + feature.properties.Senator2 + ", Term: " + feature.properties.Sen2_Term);
+	}
+}).addTo(map);
 
 
+
+// L.geoJson(states).addTo(map);
 
 // // Then we add our 'graymap' tile layer to the map.
 // streets.addTo(map);
